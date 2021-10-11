@@ -8,7 +8,6 @@ import { Button, ButtonGroup } from '@material-ui/core';
 
 const generateOptions = (data) => {
     const categories= data.map(item => moment(item.Date).format('DD/MM/YY'));
-    console.log(data);
     return {
         chart: {
             height: 500,
@@ -54,8 +53,8 @@ const generateOptions = (data) => {
     };
 }
 
-export default function LineChart({ data }) {
-    console.log('LineChart', {data});
+function LineChart({ data }) {
+
 
     const [options, setOptions] = useState({});
     const [reportType, setReportType] = useState('all')
@@ -88,11 +87,11 @@ export default function LineChart({ data }) {
     return (
         <div>
             <ButtonGroup size='small' style={{ display: 'flex', justifyContent:'flex-end'}}>
-                <Button color={reportType === 'all' ? 'Secondary' : ''} onClick={() => setReportType('all')}>All</Button>
-                <Button color={reportType === '90' ? 'Secondary' : ''} onClick={() => setReportType('90')}>90 Days</Button>
-                <Button color={reportType === '60' ? 'Secondary' : ''} onClick={() => setReportType('60')}>60 Days</Button>
-                <Button color={reportType === '30' ? 'Secondary' : ''} onClick={() => setReportType('30')}>30 Days</Button>
-                <Button color={reportType === '7' ? 'Secondary': ''} onClick={() => setReportType('7')}>7 Days</Button>
+                <Button color={reportType === 'all' ? 'secondary' : ''} onClick={() => setReportType('all')}>All</Button>
+                <Button color={reportType === '90' ? 'secondary' : ''} onClick={() => setReportType('90')}>90 Days</Button>
+                <Button color={reportType === '60' ? 'secondary' : ''} onClick={() => setReportType('60')}>60 Days</Button>
+                <Button color={reportType === '30' ? 'secondary' : ''} onClick={() => setReportType('30')}>30 Days</Button>
+                <Button color={reportType === '7' ? 'secondary': ''} onClick={() => setReportType('7')}>7 Days</Button>
             </ButtonGroup>
             <HighchartsReact 
                 hightchart={Highchart}
@@ -101,3 +100,5 @@ export default function LineChart({ data }) {
         </div>
     )
 }
+
+export default React.memo(LineChart);

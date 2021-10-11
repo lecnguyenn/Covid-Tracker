@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { CardContent, Grid, Typography, Card } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import HighlightCard from './HighlightCard';
 
 export default function Highlight({ report }) {
@@ -29,7 +29,7 @@ export default function Highlight({ report }) {
       <Grid container spacing ={3}>
           {
               summary.map(item => 
-                <Grid item sm={4} xs={!2}>
+                <Grid item sm={4} xs={2} key={item.type}>
                      <HighlightCard title={item.title} count={item.count} type={item.type} />
                 </Grid>
               )

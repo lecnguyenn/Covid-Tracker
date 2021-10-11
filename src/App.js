@@ -1,12 +1,13 @@
+import { Container, Typography } from '@material-ui/core';
+import { sortBy } from 'lodash';
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { getCountry, getReportByCountry } from './API';
 import CountrySelector from './components/CountrySelector';
 import Highlight from './components/Highlight';
 import Summary from './components/Summary';
-
+import moment from 'moment';
 function App() {
-
   const [countries, setCountries] = useState([]);
   const [selectedCountryId, setSelectedCountryId] = useState('');
   const [report, setReport] = useState([]);
@@ -14,8 +15,9 @@ function App() {
 useEffect(() => {
   getCountry()
     .then(res =>{
-      // console.log({res});
-      setCountries(res.data);
+
+      const countries = sortBy(res.data, 'Country')
+      setCountries(countries);
 
       setSelectedCountryId('vn');
     })
@@ -38,7 +40,11 @@ const handleOnChange = (e) =>{
   },[countries, selectedCountryId])
 
   return (
-  <React.Fragment>
+  <Container style={{marginTop:20}}>
+    <Typography variant="h2" component="h2">
+      COVID-19 DashBoard
+      </Typography>
+      <Typography>{moment().format('LLL')}</Typography>
     <CountrySelector 
     countries={countries}
     handleOnChange={handleOnChange}
@@ -46,7 +52,7 @@ const handleOnChange = (e) =>{
     />
     <Highlight report={report} />
     <Summary report={report}/>
-  </React.Fragment>
+  </Container>
   );
 }
 
